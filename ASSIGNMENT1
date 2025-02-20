@@ -1,3 +1,5 @@
+1.Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
+
 mysql> create table employees(emp_id int, name varchar(20),city varchar(20),dob date,adhar_no int);
 Query OK, 0 rows affected (0.01 sec)
 
@@ -12,6 +14,16 @@ mysql> desc employees;
 | adhar_no | int         | YES  |     | NULL    |       |
 +----------+-------------+------+-----+---------+-------+
 5 rows in set (0.01 sec)
+
+2.      Create a table STUDENT have the fields(roll_no, name, age, address, gender)and add following constraints on it.
+
+         Roll_no – Primary key
+
+         Name – does not allow null values
+
+         Age- must be in between (0-99), does not allow null values
+
+         Gender- default value is ‘m’
 
 mysql> CREATE TABLE STUDENT(roll_no int primary key,name varchar(25) not null,age int not null,address varchar(25),gender varchar(20) default
 'm',check (age<100));
@@ -29,6 +41,7 @@ mysql> desc STUDENT;
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
+3.Create a temporary table STUDENT1 of STUDENT relation.
 
 mysql> create temporary table STUDENT1 select * from STUDENT;
 Query OK, 0 rows affected (0.00 sec)
@@ -46,6 +59,8 @@ mysql> DESC STUDENT1;
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.01 sec)
 
+
+4.Create a duplicate table of EMPLOYEE.
 mysql> create table emp_dup as select * from employees;
 Query OK, 0 rows affected (0.01 sec)
 Records: 0  Duplicates: 0  Warnings: 0
