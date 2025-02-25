@@ -262,11 +262,12 @@ mysql> desc PERSON;
 
 7. Delete the table STUDENT1.
 
-mysql> drop table emp_dup;
+mysql> drop table student;
 Query OK, 0 rows affected (0.01 sec)
 
-mysql> desc emp_dup;
-ERROR 1146 (42S02): Table 'kmc.emp_dup' doesn't exist
+mysql> desc student;
+ERROR 1146 (42S02): Table 'kmc.student' doesn't exist
+mysql> 
 
 
 
