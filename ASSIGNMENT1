@@ -81,3 +81,69 @@ mysql> desc emp_dup;
 
 //RESUBMIT, ADD QUESTIONS
 //VERIFIED
+
+
+5)Create an INVOICE database and having following tables. 
+
+
+mysql> CREATE DATABASE INVOICE;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use INVOICE;
+Database changed
+
+a).Customer(id, name, address, city, ph_no) 
+mysql>  create table customer(id int primary key,name varchar(20),city varchar(20),ph_no varchar(10));
+Query OK, 0 rows affected (0.01 sec)
+mysql> desc customer;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
+| ph_no | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+b).Product(pid,  pname, price (default 0)) 
+mysql> Create table Product(pid int primary key,pname varchar(20),price int default 0);
+Query OK, 0 rows affected (0.01 sec)
+mysql> desc Product;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| price | int         | YES  |     | 0       |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+c).Invoice_master(inv_id, cust_id(FK), inv_date)
+
+mysql> create table invoice_master(inv_id int primary key,id int,inv_date date,foreign key(id) references customer(id));
+Query OK, 0 rows affected (0.02 sec)
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| id       | int  | YES  | MUL | NULL    |       |
+| inv_date | date | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+d).Invoice_item(inv_id (FK),  pid(FK), quantity)
+mysql> create table Invoice_item(inv_id int ,pid int,quality int,foreign key(inv_id) references invoice_master(inv_id),foreign key(pid) references Product(pid));
+Query OK, 0 rows affected (0.01 sec)
+mysql> desc Invoice_item;
++---------+------+------+-----+---------+-------+
+| Field   | Type | Null | Key | Default | Extra |
++---------+------+------+-----+---------+-------+
+| inv_id  | int  | YES  | MUL | NULL    |       |
+| pid     | int  | YES  | MUL | NULL    |       |
+| quality | int  | YES  |     | NULL    |       |
++---------+------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+
