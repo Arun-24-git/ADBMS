@@ -1,0 +1,167 @@
+1.Update the price of a particular product.
+
+mysql> select * from Product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |     5 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    30 |
+|   4 | book         |    50 |
+|   5 | bag          |   150 |
+|   6 | water bottle |    75 |
++-----+--------------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> update Product set price=40 where pid=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |     5 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    40 |
+|   4 | book         |    50 |
+|   5 | bag          |   150 |
+|   6 | water bottle |    75 |
++-----+--------------+-------+
+6 rows in set (0.00 sec)
+
+..........................................
+
+2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table. 
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | Arun    | Calicut           | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | Eranagulam        | 7736260433 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | calicut           | NULL       |
++-------+---------+-------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update customer set city="kozhikode" where city="calicut";
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | Arun    | kozhikode         | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | Eranagulam        | 7736260433 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | kozhikode         | NULL       |
++-------+---------+-------------------+------------+
+5 rows in set (0.00 sec)
+
+.............................
+
+3. Update all prices with 2% of its original price.
+
+mysql> select * from Product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |     5 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    40 |
+|   4 | book         |    50 |
+|   5 | bag          |   150 |
+|   6 | water bottle |    75 |
++-----+--------------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> update Product set price=price+(price*2/100);
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 6  Changed: 4  Warnings: 0
+
+mysql> select * from Product;
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |     5 |
+|   2 | pencil       |     5 |
+|   3 | soap         |    41 |
+|   4 | book         |    51 |
+|   5 | bag          |   153 |
+|   6 | water bottle |    77 |
++-----+--------------+-------+
+6 rows in set (0.00 sec)
+
+........................
+
+4. Change the address, city, phone number of a particular customer.
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | Arun    | kozhikode         | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | Eranagulam        | 7736260433 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | kozhikode         | NULL       |
++-------+---------+-------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update customer set city="kollam",ph_no="9365741201" where id="10003";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | Arun    | kozhikode         | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | kozhikode         | NULL       |
++-------+---------+-------------------+------------+
+5 rows in set (0.00 sec)
+.................................
+
+5. Change the quantity of a purchased product of inv_id ‘101’
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    101 |    1 |       2 |
+|    101 |    3 |       7 |
+|    102 |    2 |       8 |
+|    103 |    6 |      10 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update Invoice_item set quality=5 where inv_id=101;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    101 |    1 |       5 |
+|    101 |    3 |       5 |
+|    102 |    2 |       8 |
+|    103 |    6 |      10 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+6 rows in set (0.00 sec)
+
+
+...........................................................
