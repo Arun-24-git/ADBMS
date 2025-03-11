@@ -166,3 +166,200 @@ mysql> select * from Invoice_item;
 
 ...........................................................
 //VERIFIED
+
+DML:DELETE
+
+1. Delete the record of customer id ‘10001’. 
+
+delete
+
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | Arun    | kozhikode         | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | kozhikode         | NULL       |
++-------+---------+-------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item where inv_id=101;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> delete from invoice_master  where inv_id=101;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from customer where id =10001;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | kozhikode         | NULL       |
++-------+---------+-------------------+------------+
+4 rows in set (0.00 sec)
+
+.........................
+ 2. Delete all purchase details of items its quantity less than 2. 
+ mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    102 |    2 |       8 |
+|    103 |    6 |      10 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> update Invoice_item set quality=1 where inv_id=103;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Invoice_item set quality=1 where inv_id=103;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    102 |    2 |       8 |
+|    103 |    6 |       1 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item where quality < 2;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    102 |    2 |       8 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+3 rows in set (0.01 sec)
+
+......................
+
+3.Delete the purchase details of product ‘pen’ in the in_id ‘101’. 
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    102 |    2 |       8 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
+|    101 |    1 |       3 |
++--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item where inv_id=101;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    102 |    2 |       8 |
+|    104 |    5 |       6 |
+|    105 |    4 |       6 |
++--------+------+---------+
+3 rows in set (0.00 sec)
+
+............................
+
+
+
+4. Delete details of customer who does not have phone number. 
+
+mysql> delete from Invoice_item where inv_id=105;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from invoice_master where inv_id=105;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from customer  where id=10005;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer ;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | arun    | kozhikode         | 7994518252 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
++-------+---------+-------------------+------------+
+4 rows in set (0.00 sec)
+.............................
+
+5.Delete Invoice details of a particular customer(name) 
+
+mysql> delete from Invoice_item where inv_id=102;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from invoice_master where inv_id=102;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> delete from customer where id=10002;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | arun    | kozhikode         | 7994518252 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
++-------+---------+-------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    104 |    5 |       6 |
++--------+------+---------+
+1 row in set (0.01 sec)
+
+...................................
+
+6.Delete the first two records of INVOICE_ITEM table.
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    104 |    5 |       6 |
+|    105 |    4 |       2 |
+|    103 |    3 |       5 |
++--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> delete from Invoice_item LIMIT 2;
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from Invoice_item;
++--------+------+---------+
+| inv_id | pid  | quality |
++--------+------+---------+
+|    103 |    3 |       5 |
++--------+------+---------+
+1 row in set (0.00 sec)
+
+
+
+
