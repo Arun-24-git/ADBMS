@@ -1,0 +1,52 @@
+ Create two users user1, user2
+ 1.GRANT
+ Give insert and select privilege to user 1 on customer table in the invoice database.
+ Give update and delete privilege to user 2 on all tables in the invoice database.
+    
+mysql> create user 'user1'@'localhost' identified by 'user1';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create user 'user2'@'localhost' identified by 'user2';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT SELECT,INSERT ON Customer TO 'user1'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> show grants;
++---------------------------------------------------------------------+
+| Grants for user1@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'user1'@'localhost'                           |
+| GRANT SELECT, INSERT ON `INVOICE`.`Customer` TO 'user1'@'localhost' |
++---------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+
+mysql> GRANT DELETE,UPDATE ON INVOICE.* TO 'user2'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants;
++------------------------------------------------------------+
+| Grants for user2@localhost                                 |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'user2'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'user2'@'localhost' |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+********************************************************************************************************************************************************
+ 2.REVOKE
+Remove delete privilege of user2 
+      
+mysql> revoke delete on INVOICE. * FROM 'user2'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SHOW GRANTS;
++----------------------------------------------------+
+| Grants for user2@localhost                         |
++----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'user2'@'localhost'          |
+| GRANT UPDATE ON `INVOICE`.* TO 'user2'@'localhost' |
++----------------------------------------------------+
+2 rows in set (0.00 sec)
