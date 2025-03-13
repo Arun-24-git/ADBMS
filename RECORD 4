@@ -204,6 +204,6 @@ mysql> select concat(name , 'lives in ', city) as custs  from customer;
 +----------------------------------+
 7 rows in set (0.00 sec)
 
-
+//VERIFIED
 
 
