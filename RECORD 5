@@ -76,3 +76,4 @@ mysql> select distinct name from customer where id in(select id from invoice_mas
 
 
 
+//VERIFIED
