@@ -30,3 +30,4 @@ mysql> select * from no_sales;
 |   6 | water bottle |    77 |
 +-----+--------------+-------+
 2 rows in set (0.01 sec)
+//VERIFIED
