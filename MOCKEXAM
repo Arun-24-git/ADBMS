@@ -131,3 +131,4 @@ mysql> select * from emp1;
 |   103 | anu  | sales      |  60000 |
 +-------+------+------------+--------+
 1 row in set (0.00 sec)
+//VERIFIED
