@@ -32,3 +32,4 @@ mysql> select pid,pname,price,price_info(price) from Product //
 |   6 | water bottle |    82 | HIGH              |
 +-----+--------------+-------+-------------------+
 6 rows in set (0.00 sec)
+//VERIFIED
