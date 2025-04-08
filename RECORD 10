@@ -1,0 +1,99 @@
+
+                                                    PL/SQL - CURSOR
+
+1.Create a trigger to handle updates to the customer table. 
+
+mysql> DELIMITER //
+mysql> use INVOICE //
+
+
+ mysql> DELIMITER //
+mysql> create table customer__1(id int,name varchar(15),address varchar(15),city varchar(25),phno bigint); //
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> create trigger updaterS
+    ->  before update
+    -> on Customer for each row
+    -> begin
+    -> insert into customer__1
+    -> values(old.id,old.name,old.address,old.city,old.ph_no);
+    -> end //
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from customer;
+    -> //
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | raju    | kollam            | 9997548881 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | calicut           | NULL       |
+| 10006 | anu     | kollam            | 8725901578 |
+| 10007 | bob     | kollam            | 9012873103 |
++-------+---------+-------------------+------------+
+
+mysql> update Customer set city='calicut' where id=10001; //
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select * from customer__1; //
++------+--------+-----------+-----------+
+| id     | name   | city   | phno       |
++------  +--------+--------+------------+
+|  10001 | raju   |  kollam| 9997548881 |
++------  +--------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer;
+    -> //
++-------+---------+-------------------+------------+
+| id    | name    | city              | ph_no      |
++-------+---------+-------------------+------------+
+| 10001 | raju    | calicut           | 9997548881 |
+| 10002 | Arjun   | Thrissur          | 7884518237 |
+| 10003 | krishan | kollam            | 9365741201 |
+| 10004 | Vishnu  | Thiruvanathapuram | 8890165390 |
+| 10005 | Deepak  | calicut           | NULL       |
+| 10006 | anu     | kollam            | 8725901578 |
+| 10007 | bob     | kollam            | 9012873103 |
++-------+---------+-------------------+------------+
+
+...............................
+
+2.Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+mysql> create trigger product_price
+    -> before insert
+    -> on Product
+    -> for each row
+    -> begin
+    -> if new.price < 5 
+    -> then
+    -> set new.price=10;
+    -> end if;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into Product values(9,"chart",3);
+    -> //
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from Product;
+    -> //
++-----+--------------+-------+
+| pid | pname        | price |
++-----+--------------+-------+
+|   1 | pen          |    10 |
+|   2 | pencil       |    10 |
+|   3 | soap         |    46 |
+|   4 | book         |    56 |
+|   5 | bag          |   158 |
+|   6 | water bottle |    82 |
+|   9 | chart        |    10 |
++-----+--------------+-------+
+7 rows in set (0.00 sec)
+
