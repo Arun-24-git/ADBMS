@@ -1,0 +1,162 @@
+                                              NoSQL CRUD
+                                            .................
+
+
+1.Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents
+
+test> use INVOICE
+switched to db INVOICE
+INVOICE> db.createCollection("Customer")
+{ ok: 1 }
+
+INVOICE> db.createCollection("Product")
+{ ok: 1 }
+
+INVOICE> db.Customer.insertOne({"Name":"Arun","city":"calicut","ph_no":"7994581252","age":"21"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67fe29be35ab5ec780d861e1')
+}
+INVOICE> db.Customer.insertOne({"Name":"Arjun","city":"kollam","ph_no":"7884581252","age":"22"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67fe29f235ab5ec780d861e2')
+}
+INVOICE> db.Customer.insertOne({"Name":"Anu","city":"thrissur","ph_no":"9882581252","age":"21"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67fe2a3435ab5ec780d861e3')
+}
+INVOICE> db.Customer.insertOne({"Name":"Ramu","city":"kannur","ph_no":"9882512252","age":"23"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('67fe2a6d35ab5ec780d861e4')
+}
+INVOICE> db.Product.insertMany([{"pname":"pen","price":"5","quantity":"7"},{"pname":"pencil","price":"4","quantity":"5"},{"pname":"book","price":"40","quantity":"8"},{"pname":"bag","price":"150","quantity":"7"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67fe2ba935ab5ec780d861e5'),
+    '1': ObjectId('67fe2ba935ab5ec780d861e6'),
+    '2': ObjectId('67fe2ba935ab5ec780d861e7'),
+    '3': ObjectId('67fe2ba935ab5ec780d861e8')
+  }
+}
+..................................................
+2.Write a MongoDB query to find all documents from the collection CUSTOMER 
+
+INVOICE> db.Customer.find()
+[
+  {
+    _id: ObjectId('67fe299d35ab5ec780d861e0'),
+    Name: 'Arun',
+    city: 'calicut',
+    ph_no: '7994581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe29be35ab5ec780d861e1'),
+    Name: 'Arun',
+    city: 'calicut',
+    ph_no: '7994581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'kannur',
+    ph_no: '9882512252',
+    age: '23'
+  }
+]
+...................................
+3.Write a MongoDB query to update the city in the collection CUSTOMER.
+INVOICE> db.Customer.update({city:"kannur"},{$set:{city:"alappuzha"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+INVOICE> db.Customer.find()
+[
+  {
+    _id: ObjectId('67fe299d35ab5ec780d861e0'),
+    Name: 'Arun',
+    city: 'calicut',
+    ph_no: '7994581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe29be35ab5ec780d861e1'),
+    Name: 'Arun',
+    city: 'calicut',
+    ph_no: '7994581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23'
+  }
+]
+.............................................
+4.Write a MongoDB query to delete the first matched document whose city is “Calicut”.
+INVOICE> db.Customer.deleteOne({"city":"calicut"})
+{ acknowledged: true, deletedCount: 1 }
+INVOICE> db.Customer.find()
+[
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23'
+  }
+]
+..........................
