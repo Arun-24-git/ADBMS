@@ -1,0 +1,69 @@
+                                                 NoSQL- RETRIEVING DATA
+                                                 
+1.Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’. 
+
+INVOICE> db.Customer.find({$or:[{"city":"Eranangulam"},{"city":"TVM"}]}).pretty()
+[
+  {
+    _id: ObjectId('67ff6d913c73ea62d7d861e0'),
+    Name: 'Alis',
+    city: 'Eranangulam',
+    ph_no: '7995482152',
+    age: '20'
+  },
+  {
+    _id: ObjectId('67ff6deb3c73ea62d7d861e1'),
+    Name: 'Mary',
+    city: 'TVM',
+    ph_no: '9875482152',
+    age: '22'
+  }
+]
+............................................................
+2.Write a MongoDB query to display all product documents their price >50.
+
+INVOICE> db.Product.find({ price: { $gt: 50 } }).pretty()
+... 
+[
+  {
+    _id: ObjectId('67fe2ba935ab5ec780d861e8'),
+    pname: 'bag',
+    price: 150,
+    quantity: '7'
+ }
+ }
+ .........................................
+ 3.Write a MongoDB query to find customer documents who not live in ‘tvm’.
+ INVOICE> db.Customer.find({"city":{$ne:"TVM"}})
+[
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23'
+  },
+  {
+    _id: ObjectId('67ff6d913c73ea62d7d861e0'),
+    Name: 'Alis',
+    city: 'Eranangulam',
+    ph_no: '7995482152',
+    age: '20'
+  }
+]
+
+ 
