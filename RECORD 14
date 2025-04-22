@@ -232,3 +232,4 @@ $lookup: {
   { customer_name: 'Renu', product_name: 'Shoes', price: 1200 },
   { customer_name: 'Sanu', product_name: 'Watch', price: 2500 }
 ]
+//VERIFIED
