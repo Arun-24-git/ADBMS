@@ -1,0 +1,234 @@
+
+                                           AGGREGATE FUNCTIONS AND REGULAR EXPRESSIONS
+                                           ..........................................
+
+1.Write a MongoDB query to sort customer details in ascending order of their name.
+INVOICE> db.Customer.find().sort({"name":1})
+[
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23'
+  },
+  {
+    _id: ObjectId('67ff6d913c73ea62d7d861e0'),
+    Name: 'Alis',
+    city: 'Eranangulam',
+    ph_no: '7995482152',
+    age: '20'
+  },
+  {
+    _id: ObjectId('67ff6deb3c73ea62d7d861e1'),
+    Name: 'Mary',
+    city: 'TVM',
+    ph_no: '9875482152',
+    age: '22'
+  }
+]
+.................................INVOICE> INVOICE> db.Customer.find().sort({ "Name": 1 }).collation({ locale: 'en', strength: 2 })
+... 
+ReferenceError: INVOICE is not defined
+INVOICE> db.Customer.find().sort({ "Name": 1 }).collation({ locale: 'en', strength: 2 })
+[
+  {
+    _id: ObjectId('67ff6d913c73ea62d7d861e0'),
+    Name: 'Alis',
+    city: 'Eranangulam',
+    ph_no: '7995482152',
+    age: '20'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21'
+  },
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67ff6deb3c73ea62d7d861e1'),
+    Name: 'Mary',
+    city: 'TVM',
+    ph_no: '9875482152',
+    age: '22'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23'
+  }
+]
+.................................................
+2.Write a MongoDB query to count number of customers in each city.
+INVOICE> db.Customer.aggregate([{$group:{_id:"$city",total:{$sum:1}}}])
+[
+  { _id: 'kollam', total: 1 },
+  { _id: 'idukki', total: 1 },
+  { _id: 'TVM', total: 1 },
+  { _id: 'thrissur', total: 1 },
+  { _id: 'Eranangulam', total: 2 }
+]
+}
+................................................
+3.Write a MongoDB query to find minimum and maximum age in each city.
+INVOICE> db.Customer.aggregate([{$group:{_id:"$city",max_age:{$max:"$age"},min_age:{$min:"$age"}}}])
+[
+  { _id: 'kollam', max_age: '22', min_age: '22' },
+  { _id: 'idukki', max_age: '23', min_age: '23' },
+  { _id: 'TVM', max_age: '22', min_age: '22' },
+  { _id: 'thrissur', max_age: '21', min_age: '21' },
+  { _id: 'Eranangulam', max_age: '25', min_age: '20' }
+}
+..............................................
+4.Write a MongoDB query using the $match stage to retrieve all customer documents whose customer_name starts with the letter “S”.
+INVOICE> db.Customer.aggregate([{$match:{Name:{$regex:"^S",$options:"i"}}}])
+[
+  {
+    _id: ObjectId('67ff7c5d3c73ea62d7d861e3'),
+    Name: 'Sanu',
+    city: 'Eranangulam',
+    ph_no: '9047482251',
+    age: '25'
+  }
+]
+...........................................
+5.Write a query using $lookup to join CUSTOMER and PRODUCT collections and display only customer name, product name, and price.
+INVOICE> db.product.insertMany([{ pid: "P001", pname: "Bag", price: 150 },
+{ pid: "P002", pname: "Shoes", price: 1200 },
+{ pid: "P003", pname: "Watch", price: 2500 },
+{ pid: "P004", pname: "Notebook", price: 50 }])
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6807578f7fe35ead2cd861e0'),
+    '1': ObjectId('6807578f7fe35ead2cd861e1'),
+    '2': ObjectId('6807578f7fe35ead2cd861e2'),
+    '3': ObjectId('6807578f7fe35ead2cd861e3')
+  }
+}
+INVOICE> db.Customer.find()
+[
+  {
+    _id: ObjectId('67fe29f235ab5ec780d861e2'),
+    Name: 'Arjun',
+    city: 'kollam',
+    ph_no: '7884581252',
+    age: '22',
+    customer_id: 'C001'
+  },
+  {
+    _id: ObjectId('67fe2a3435ab5ec780d861e3'),
+    Name: 'Anu',
+    city: 'thrissur',
+    ph_no: '9882581252',
+    age: '21',
+    customer_id: 'C002'
+  },
+  {
+    _id: ObjectId('67fe2a6d35ab5ec780d861e4'),
+    Name: 'Ramu',
+    city: 'idukki',
+    ph_no: '9882512252',
+    age: '23',
+    customer_id: 'C003'
+  },
+  {
+    _id: ObjectId('67ff6d913c73ea62d7d861e0'),
+    Name: 'Alis',
+    city: 'Eranangulam',
+    ph_no: '7995482152',
+    age: '20',
+    customer_id: 'C004'
+  },
+  {
+    _id: ObjectId('67ff6deb3c73ea62d7d861e1'),
+    Name: 'Mary',
+    city: 'TVM',
+    ph_no: '9875482152',
+    age: '22',
+    customer_id: 'C005'
+  },
+  {
+    _id: ObjectId('67ff7b743c73ea62d7d861e2'),
+    Name: 'Renu',
+    city: 'Eranangulam',
+    ph_no: '9043482152',
+    age: '25',
+    customer_id: 'C006'
+  },
+  {
+    _id: ObjectId('67ff7c5d3c73ea62d7d861e3'),
+    Name: 'Sanu',
+    city: 'Eranangulam',
+    ph_no: '9047482251',
+    age: '25',
+    customer_id: 'C007'
+  }
+]
+
+INVOICE> db.Customer.updateOne({ customer_id: "C001" }, { $set: { product_id: "P001" } })
+INVOICE>db.Customer.updateOne({ customer_id: "C002" }, { $set: { product_id: "P002" } })
+INVOICE>db.Customer.updateOne({ customer_id: "C003" }, { $set: { product_id: "P003" } })
+INVOICE>db.Customer.updateOne({ customer_id: "C004" }, { $set: { product_id: "P004" } })
+INVOICE>db.Customer.updateOne({ customer_id: "C005" }, { $set: { product_id: "P001" } }) 
+INVOICE>db.Customer.updateOne({ customer_id: "C006" }, { $set: { product_id: "P002" } })
+INVOICE>db.Customer.updateOne({ customer_id: "C007" }, { $set: { product_id: "P003" } }) 
+
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+INVOICE> db.Customer.aggregate([
+{
+$lookup: {
+      from: "product",
+      localField: "product_id", foreignField: "pid", as: "product_info"
+    }
+  },
+  {
+    $unwind: "$product_info"
+  },
+  {
+  $project: {
+       _id: 0,customer_name: "$Name", product_name: "$product_info.pname",price: "$product_info.price"
+     }
+  }
+ ])
+
+[
+  { customer_name: 'Arjun', product_name: 'Bag', price: 150 },
+  { customer_name: 'Anu', product_name: 'Shoes', price: 1200 },
+  { customer_name: 'Ramu', product_name: 'Watch', price: 2500 },
+  { customer_name: 'Alis', product_name: 'Notebook', price: 50 },
+  { customer_name: 'Mary', product_name: 'Bag', price: 150 },
+  { customer_name: 'Renu', product_name: 'Shoes', price: 1200 },
+  { customer_name: 'Sanu', product_name: 'Watch', price: 2500 }
+]
