@@ -47,3 +47,4 @@ ksb@ksb-H410M-S2-V2:~$ mongorestore --db INVOICE dump/INVOICE
   { v: 2, key: { customer_name: 1 }, name: 'custom_index_name' }
 ]
 
+//VERIFIED
