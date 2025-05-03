@@ -392,3 +392,4 @@ collegeDB> db.Students.aggregate([{$lookup:{from:"internship",localField:"id",fo
 
 name, department, internship_company, and duration
 (Assume students.student_id = internships.student_id)
+//VERIFIED
